@@ -25,7 +25,13 @@ public class Task {
     private String description;
 
     @Column
+    private String status;
+
+    @Column
     private Date createdAt;
+
+    @Column
+    private Date updatedAt;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @OnDelete(action = OnDeleteAction.CASCADE)
