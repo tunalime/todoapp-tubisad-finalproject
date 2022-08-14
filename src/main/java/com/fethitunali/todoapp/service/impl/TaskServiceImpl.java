@@ -79,9 +79,8 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public ResponseEntity<Task> deleteTaskById(Long id) {
         try{
-            Task deletedTask = taskRepository.getById(id);
             taskRepository.deleteById(id);
-            return new ResponseEntity(deletedTask, HttpStatus.OK);
+            return new ResponseEntity("Task Silindi.", HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity("Task Silinemedi.", HttpStatus.BAD_REQUEST);
         }
