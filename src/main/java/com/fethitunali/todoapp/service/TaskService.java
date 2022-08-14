@@ -8,23 +8,20 @@ import java.util.List;
 
 public interface TaskService {
 
-    // ModelMapper
-    public TaskDto entitiyToDto(Task task);
-
-    public Task dtoToEntity(TaskDto taskDto);
-
     //save
-    public TaskDto createTask(TaskDto taskDto);
+    public Task createTask(TaskDto taskDto);
 
     //list
-    public List<TaskDto> getAllTasks();
+    public List<Task> getAllTasks();
 
     //find
-    public ResponseEntity<TaskDto> getTaskById(Long id);
+    public ResponseEntity<Task> getTaskById(Long id);
 
     //update
-    public ResponseEntity<TaskDto> updateTaskById(Long id, TaskDto taskDto);
+    public ResponseEntity<Task> updateDescriptionById(Long id, String description);
+
+    public ResponseEntity<Task> updateStatusById(Long id);
 
     //delete
-    public ResponseEntity<TaskDto> deleteTaskById(Long id);
+    public ResponseEntity<Task> deleteTaskById(Long id);
 }
