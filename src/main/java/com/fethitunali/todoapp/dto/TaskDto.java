@@ -16,4 +16,6 @@ public class TaskDto {
     private Long id;
     private String description;
     private String status;
+    private Date createdAt;
+    private Date updatedAt;
 }
