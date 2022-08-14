@@ -3,7 +3,6 @@ package com.fethitunali.todoapp.controller.mvc;
 import com.fethitunali.todoapp.dto.TaskDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,7 @@ import java.util.List;
 
 @Controller
 @Log4j2
-public class TaskController {
+public class TaskControllerMVC {
 
     //Speed Data Insert
     //http://localhost:8080/task/speedSave
@@ -100,7 +99,7 @@ public class TaskController {
         String URL = "http://localhost:8080/api/v1/tasks/" + id;
         ResponseEntity<TaskDto> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, HttpEntity.EMPTY, TaskDto.class);
         model.addAttribute("task_update", responseEntity.getBody());
-        return "task_update";
+        return "task_update_description";
     }
 /*
     //UPDATE STATUS GET
@@ -115,27 +114,27 @@ public class TaskController {
 
     //UPDATE DESCRIPTION POST
     @PostMapping("update/task/{id}")
-    public String taskControllerUpdateDescriptionPostForm(@Valid @ModelAttribute("task_update") String description, @PathVariable Long id, BindingResult bindingResult) {
+    public String taskControllerUpdateDescriptionPostForm(@Valid @ModelAttribute("task_update") TaskDto taskDto, @PathVariable Long id, BindingResult bindingResult) {
         RestTemplate restTemplate= new RestTemplate();
         String URL = "http://localhost:8080/api/v1/tasks/update/description/" + id;
 
         if(bindingResult.hasErrors()){
-            return "task_update";
+            return "task_update_description";
         }
-        restTemplate.postForObject(URL, description, TaskDto.class);
+        restTemplate.postForObject(URL, taskDto, TaskDto.class);
         return "redirect:/task/list";
     }
 
-    //UPDATE STATUS POST
+/*    //UPDATE STATUS POST
     @PostMapping("update/task/{id}")
-    public String taskControllerUpdateStatusPostForm(@PathVariable Long id, BindingResult bindingResult) {
+    public String taskControllerUpdateStatusPostForm(@Valid @ModelAttribute("task_update")  TaskDto taskDto,@PathVariable Long id, BindingResult bindingResult) {
         RestTemplate restTemplate= new RestTemplate();
         String URL = "http://localhost:8080/api/v1/tasks/update/status/" + id;
 
         if(bindingResult.hasErrors()){
-            return "task_update";
+            return "task_update_description";
         }
         restTemplate.execute(URL,HttpMethod.PUT,null,null);
         return "redirect:/task/list";
-    }
+    }*/
 }
