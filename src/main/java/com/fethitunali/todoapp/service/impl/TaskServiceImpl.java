@@ -51,6 +51,7 @@ public class TaskServiceImpl implements TaskService {
         try{
             Task updatedTask = taskRepository.getById(id);
             updatedTask.setDescription(description);
+            updatedTask.setUpdatedAt(new Date());
             taskRepository.save(updatedTask);
             return new ResponseEntity(updatedTask, HttpStatus.OK);
         } catch (Exception e){
@@ -67,6 +68,7 @@ public class TaskServiceImpl implements TaskService {
             } else {
                 updatedTask.setStatus("undone");
             }
+            updatedTask.setUpdatedAt(new Date());
             taskRepository.save(updatedTask);
             return new ResponseEntity(updatedTask, HttpStatus.OK);
         } catch (Exception e){
