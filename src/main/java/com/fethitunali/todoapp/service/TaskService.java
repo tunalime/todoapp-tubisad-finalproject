@@ -14,6 +14,10 @@ public interface TaskService {
     //list
     public List<Task> getAllTasks();
 
+    public List<Task> getAllTasksByDone();
+
+    public List<Task> getAllTasksByUndone();
+
     //find
     public ResponseEntity<TaskDto> getTaskById(Long id);
 

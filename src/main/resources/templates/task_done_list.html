@@ -1,7 +1,7 @@
 <!doctype html>
 <html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
 <!-- title-->
-<title>Task Listesi</title>
+<title>Done Task List</title>
 <!-- favicon -->
 <link rel="icon" href="images/favicon.jpg"/>
 
@@ -60,7 +60,7 @@
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-12">
-            <h2 class="text-center text-primary mt-5">Task Listesi</h2>
+            <h2 class="text-center text-primary mt-5">Done Task List</h2>
             <a th:text="#{add}" href="/task/form" class="btn btn-primary"></a>
             <a th:text="#{all_tasks}" href="/task/list" class="btn btn-primary"></a>
             <a th:text="#{show_done}" href="/task/list/done" class="btn btn-primary"></a>
@@ -80,7 +80,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                 <tr th:each="task:${task_list}">
+                 <tr th:each="task:${task_done_list}">
                     <td th:text="${task.id}"></td>
                     <td th:text="${task.description}"></td>
                     <td th:text="${task.status}"></td>

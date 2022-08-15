@@ -1,6 +1,7 @@
 package com.fethitunali.todoapp.controller.mvc;
 
 import com.fethitunali.todoapp.dto.TaskDto;
+import com.fethitunali.todoapp.entity.Task;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -66,6 +67,32 @@ public class TaskControllerMVC {
         List<TaskDto> dtoList = responseEntity.getBody();
         model.addAttribute("task_list", dtoList);
         return "task_list";
+    }
+
+    //LIST DONE
+    //http://localhost:8080/task/list/done
+    @GetMapping("/task/list/done")
+    public String taskControllerGetDoneList(Model model){
+        RestTemplate restTemplate = new RestTemplate();
+        String URL = "http://localhost:8080/api/v1/tasks/done";
+        ResponseEntity<List<TaskDto>> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, HttpEntity.EMPTY, new ParameterizedTypeReference<List<TaskDto>>() {
+        });
+        List<TaskDto> dtoList = responseEntity.getBody();
+        model.addAttribute("task_done_list", dtoList);
+        return "task_done_list";
+    }
+
+    //LIST UNDONE
+    //http://localhost:8080/task/list/done
+    @GetMapping("/task/list/undone")
+    public String taskControllerGetUndoneList(Model model){
+        RestTemplate restTemplate = new RestTemplate();
+        String URL = "http://localhost:8080/api/v1/tasks/undone";
+        ResponseEntity<List<TaskDto>> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, HttpEntity.EMPTY, new ParameterizedTypeReference<List<TaskDto>>() {
+        });
+        List<TaskDto> dtoList = responseEntity.getBody();
+        model.addAttribute("task_undone_list", dtoList);
+        return "task_undone_list";
     }
 
     //FIND

@@ -39,6 +39,16 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<Task> getAllTasksByDone(){
+        return taskRepository.getAllByStatus("done");
+    }
+
+    @Override
+    public List<Task> getAllTasksByUndone(){
+        return taskRepository.getAllByStatus("undone");
+    }
+
+    @Override
     public ResponseEntity<TaskDto> getTaskById(Long id) {
         try{
             Task task = taskRepository.getById(id);

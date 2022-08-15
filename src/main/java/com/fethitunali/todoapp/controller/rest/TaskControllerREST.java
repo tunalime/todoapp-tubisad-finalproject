@@ -37,6 +37,18 @@ public class TaskControllerREST {
         return taskService.getAllTasks();
     }
 
+    //http://localhost:8080/api/v1/tasks/done
+    @GetMapping("/tasks/done")
+    public List<Task> getAllTasksDone(){
+        return taskService.getAllTasksByDone();
+    }
+
+    //http://localhost:8080/api/v1/tasks/undone
+    @GetMapping("/tasks/undone")
+    public List<Task> getAllTasksUndone(){
+        return taskService.getAllTasksByUndone();
+    }
+
     //http://localhost:8080/api/v1/tasks/1
     @GetMapping("/tasks/{id}")
     public ResponseEntity<TaskDto> getTaskById(@PathVariable Long id) {
