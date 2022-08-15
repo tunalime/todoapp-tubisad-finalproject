@@ -2,8 +2,6 @@ package com.fethitunali.todoapp.service;
 
 import com.fethitunali.todoapp.dto.TaskDto;
 import com.fethitunali.todoapp.entity.Task;
-import org.springframework.http.ResponseEntity;
-
 import java.util.List;
 
 public interface TaskService {
@@ -19,7 +17,7 @@ public interface TaskService {
     public List<Task> getAllTasksByUndone();
 
     //find
-    public ResponseEntity<TaskDto> getTaskById(Long id);
+    public TaskDto getTaskById(Long id);
 
     //update
     public boolean updateDescriptionById(Long id, TaskDto taskDto);

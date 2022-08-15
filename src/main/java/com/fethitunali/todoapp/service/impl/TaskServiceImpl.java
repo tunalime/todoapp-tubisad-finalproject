@@ -6,10 +6,7 @@ import com.fethitunali.todoapp.entity.Task;
 import com.fethitunali.todoapp.service.TaskService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -35,22 +32,21 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<Task> getAllTasks() {
-        return taskRepository.findAll();
+        return taskRepository.getAllByOrderByIdAsc();
     }
 
     @Override
     public List<Task> getAllTasksByDone(){
-        return taskRepository.getAllByStatus("done");
+        return taskRepository.getAllByStatusOrderById("done");
     }
 
     @Override
     public List<Task> getAllTasksByUndone(){
-        return taskRepository.getAllByStatus("undone");
+        return taskRepository.getAllByStatusOrderById("undone");
     }
 
     @Override
-    public ResponseEntity<TaskDto> getTaskById(Long id) {
-        try{
+    public TaskDto getTaskById(Long id) {
             Task task = taskRepository.getById(id);
             TaskDto taskDto = new TaskDto();
             taskDto.setId(task.getId());
@@ -58,10 +54,7 @@ public class TaskServiceImpl implements TaskService {
             taskDto.setStatus(task.getStatus());
             taskDto.setCreatedAt(task.getCreatedAt());
             taskDto.setUpdatedAt(task.getUpdatedAt());
-            return new ResponseEntity(taskDto, HttpStatus.ACCEPTED);
-        } catch (Exception e){
-            return new ResponseEntity("Kayıt bulunamadı", HttpStatus.BAD_REQUEST);
-        }
+            return taskDto;
     }
 
     @Override
