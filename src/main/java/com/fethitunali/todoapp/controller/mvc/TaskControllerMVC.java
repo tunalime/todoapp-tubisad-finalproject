@@ -1,7 +1,6 @@
 package com.fethitunali.todoapp.controller.mvc;
 
 import com.fethitunali.todoapp.dto.TaskDto;
-import com.fethitunali.todoapp.entity.Task;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -100,7 +99,7 @@ public class TaskControllerMVC {
     @GetMapping("find/task/{id}")
     public String taskControllerFind(@PathVariable(name = "id") Long id, Model model) {
         RestTemplate restTemplate= new RestTemplate();
-        String URL = "http://localhost:8080/api/v1/tasks"+id;
+        String URL = "http://localhost:8080/api/v1/tasks/"+id.toString();
         ResponseEntity<TaskDto> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, HttpEntity.EMPTY, TaskDto.class);
         model.addAttribute("task_find", responseEntity.getBody());
         return "task_detail_pages";

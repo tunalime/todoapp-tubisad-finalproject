@@ -37,6 +37,12 @@ public class TaskControllerREST {
         return taskService.getAllTasks();
     }
 
+    //http://localhost:8080/api/v1/tasks/1
+    @GetMapping("/tasks/{id}")
+    public ResponseEntity<TaskDto> getTaskById(@PathVariable Long id) {
+        return new ResponseEntity(taskService.getTaskById(id), HttpStatus.ACCEPTED);
+    }
+
     //http://localhost:8080/api/v1/tasks/done
     @GetMapping("/tasks/done")
     public List<Task> getAllTasksDone(){
@@ -47,12 +53,6 @@ public class TaskControllerREST {
     @GetMapping("/tasks/undone")
     public List<Task> getAllTasksUndone(){
         return taskService.getAllTasksByUndone();
-    }
-
-    //http://localhost:8080/api/v1/tasks/1
-    @GetMapping("/tasks/{id}")
-    public ResponseEntity<TaskDto> getTaskById(@PathVariable Long id) {
-        return taskService.getTaskById(id);
     }
 
     //http://localhost:8080/api/v1/tasks/1
