@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -81,60 +80,46 @@ public class TaskControllerMVC {
     }
 
     //DELETE
-    //http://localhost:8080/task/delete/4
+    //http://localhost:8080/task/delete/1
     @GetMapping("delete/task/{id}")
     public String taskControllerDelete(@PathVariable(name = "id") Long id, Model model) {
         //"http://localhost:8080/api/v1/tasks"  /1
         RestTemplate restTemplate= new RestTemplate();
-        String URL = "http://localhost:8080/api/v1/tasks/"+id;
-        ResponseEntity<TaskDto> responseEntity = restTemplate.exchange(URL, HttpMethod.DELETE, HttpEntity.EMPTY, TaskDto.class);
-        model.addAttribute("task_delete", responseEntity.getBody());
+        String URL = "http://localhost:8080/api/v1/tasks/" + id.toString();
+        restTemplate.execute(URL,HttpMethod.DELETE,null,null);
         return "redirect:/task/list";
     }
 
-    //UPDATE GET
-    @GetMapping("update/task/{id}")
+    //UPDATE DESCRIPTION GET
+    @GetMapping("update/description/{id}")
     public String taskControllerUpdateDescriptionGetForm(@PathVariable(name = "id") Long id, Model model) {
         RestTemplate restTemplate= new RestTemplate();
         String URL = "http://localhost:8080/api/v1/tasks/" + id;
         ResponseEntity<TaskDto> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, HttpEntity.EMPTY, TaskDto.class);
         model.addAttribute("task_update", responseEntity.getBody());
-        return "task_update_description";
-    }
-/*
-    //UPDATE STATUS GET
-    @GetMapping("update/task/{id}")
-    public String taskControllerUpdateStatusGetForm(@PathVariable(name = "id") Long id, Model model) {
-        RestTemplate restTemplate= new RestTemplate();
-        String URL = "http://localhost:8080/api/v1/tasks/" + id;
-        ResponseEntity<TaskDto> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, HttpEntity.EMPTY, TaskDto.class);
-        model.addAttribute("task_update", responseEntity.getBody());
         return "task_update";
-    }*/
+    }
 
     //UPDATE DESCRIPTION POST
     @PostMapping("update/task/{id}")
     public String taskControllerUpdateDescriptionPostForm(@Valid @ModelAttribute("task_update") TaskDto taskDto, @PathVariable Long id, BindingResult bindingResult) {
         RestTemplate restTemplate= new RestTemplate();
-        String URL = "http://localhost:8080/api/v1/tasks/update/description/" + id;
+        String URL = "http://localhost:8080/api/v1/tasks/update/description/" + id.toString();
 
         if(bindingResult.hasErrors()){
-            return "task_update_description";
+            return "task_update";
         }
-        restTemplate.postForObject(URL, taskDto, TaskDto.class);
+        restTemplate.put(URL,taskDto);
         return "redirect:/task/list";
     }
 
-/*    //UPDATE STATUS POST
-    @PostMapping("update/task/{id}")
-    public String taskControllerUpdateStatusPostForm(@Valid @ModelAttribute("task_update")  TaskDto taskDto,@PathVariable Long id, BindingResult bindingResult) {
+    //UPDATE STATUS
+    @GetMapping("update/status/{id}")
+    public String taskControllerUpdateStatusGetForm(@PathVariable Long id) {
         RestTemplate restTemplate= new RestTemplate();
-        String URL = "http://localhost:8080/api/v1/tasks/update/status/" + id;
-
-        if(bindingResult.hasErrors()){
-            return "task_update_description";
-        }
+        String URL = "http://localhost:8080/api/v1/tasks/update/status/" + id.toString();
         restTemplate.execute(URL,HttpMethod.PUT,null,null);
         return "redirect:/task/list";
-    }*/
+    }
+
 }
