@@ -9,5 +9,7 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    List<Task> getAllByStatus(String status);
+    List<Task> getAllByStatusOrderById(String status);
+
+    List<Task> getAllByOrderByIdAsc();
 }
