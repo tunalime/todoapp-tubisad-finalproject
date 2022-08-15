@@ -1,5 +1,5 @@
 # todoapp-tubisad-finalproject
-tubisad spring bootcamp final project
+tubisad springboot bootcamp final project
 
 Postgresql required as DBMS.
 
