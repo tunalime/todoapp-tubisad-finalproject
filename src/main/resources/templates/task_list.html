@@ -1,7 +1,7 @@
 <!doctype html>
 <html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
 <!-- title-->
-<title>To Do List</title>
+<title>Task Listesi</title>
 <!-- favicon -->
 <link rel="icon" href="images/favicon.jpg"/>
 
@@ -42,7 +42,12 @@
 <!-- External JS -->
 <!--<script th:src="@{/js/template.js}"></script>-->
 <style>
-    tr>td {
+    tr {
+        color:white;
+    }
+</style>
+<style>
+    td {
         color:white;
     }
 </style>
@@ -53,9 +58,9 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <h2 class="text-center text-primary mt-5">To Do List</h2>
+        <div class="col-md-3"></div>
+        <div class="col-md-12">
+            <h2 class="text-center text-primary mt-5">Task Listesi</h2>
             <a th:text="#{add}" href="/task/form" class="btn btn-primary"></a>
             <table class="table table-hover table-striped table-responsive table-lg">
                 <thead>
@@ -63,8 +68,11 @@
                     <th th:text="#{task_id}"></th>
                     <th th:text="#{task_description}"></th>
                     <th th:text="#{task_status}"></th>
+                    <th th:text="#{task_createdat}"></th>
+                    <th th:text="#{task_updatedat}"></th>
                     <th th:text="#{show}"></th>
-                    <th th:text="#{update}"></th>
+                    <th th:text="#{update_description}"></th>
+                    <th th:text="#{update_status}"></th>
                     <th th:text="#{delete}"></th>
                 </tr>
                 </thead>
@@ -73,9 +81,12 @@
                     <td th:text="${task.id}"></td>
                     <td th:text="${task.description}"></td>
                     <td th:text="${task.status}"></td>
+                    <td th:text="${task.createdAt}"></td>
+                    <td th:text="${task.updatedAt}"></td>
 
                     <td><a th:href="@{/find/task/{id}(id=${task.id})}"><i class="fa-solid fa-binoculars text-warning"></i></a></td>
-                    <td><a th:href="@{/update/task/{id}(id=${task.id})}"><i class="fa-solid fa-wrench text-primary"></i></a></td>
+                    <td><a th:href="@{/update/description/{id}(id=${task.id})}"><i class="fa-solid fa-wrench text-primary"></i></a></td>
+                    <td><a th:href="@{/update/status/{id}(id=${task.id})}"><i class="fa-solid fa-wrench text-primary"></i></a></td>
                     <td>
                         <!-- <a th:onclick="if(!(confirm('Silmek istediğinden emin misin ?'))) return false"-->
                         <a

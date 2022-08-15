@@ -85,12 +85,6 @@
                         <label th:if="${#fields.hasErrors('description')}" th:errors="*{description}"  class="form-label text-danger" >description</label>
                     </div>
 
-                    <!-- Status -->
-                    <div class="form-outline mb-4">
-                        <input type="text" class="form-control form-control-lg"  placeholder="status" id="status" th:field="*{status}" />
-                        <label th:if="${#fields.hasErrors('status')}" th:errors="*{status}"  class="form-label text-danger">status</label>
-                    </div>
-
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <input type="submit" class="btn btn-primary btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;" value="Gönder">
