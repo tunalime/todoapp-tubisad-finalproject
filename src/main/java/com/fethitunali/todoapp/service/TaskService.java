@@ -15,13 +15,13 @@ public interface TaskService {
     public List<Task> getAllTasks();
 
     //find
-    public ResponseEntity<Task> getTaskById(Long id);
+    public ResponseEntity<TaskDto> getTaskById(Long id);
 
     //update
-    public ResponseEntity<Task> updateDescriptionById(Long id, String description);
+    public boolean updateDescriptionById(Long id, TaskDto taskDto);
 
-    public ResponseEntity<Task> updateStatusById(Long id);
+    public boolean updateStatusById(Long id);
 
     //delete
-    public ResponseEntity<Task> deleteTaskById(Long id);
+    public boolean deleteTaskById(Long id);
 }

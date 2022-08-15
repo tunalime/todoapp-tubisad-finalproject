@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -26,8 +27,8 @@ public class TaskServiceImpl implements TaskService {
         Task newTask = new Task();
         newTask.setDescription(taskDto.getDescription());
         newTask.setStatus("undone");
-        newTask.setCreatedAt(new Date());
-        newTask.setUpdatedAt(new Date());
+        newTask.setCreatedAt((new SimpleDateFormat("dd-MM-yy HH:mm")).format(new Date()));
+        newTask.setUpdatedAt((new SimpleDateFormat("dd-MM-yy HH:mm")).format(new Date()));
         taskRepository.save(newTask);
         return newTask;
     }
@@ -38,29 +39,35 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public ResponseEntity<Task> getTaskById(Long id) {
+    public ResponseEntity<TaskDto> getTaskById(Long id) {
         try{
-            return new ResponseEntity(taskRepository.getById(id), HttpStatus.ACCEPTED);
+            Task task = taskRepository.getById(id);
+            TaskDto taskDto = new TaskDto();
+            taskDto.setId(task.getId());
+            taskDto.setDescription(task.getDescription());
+            taskDto.setStatus(task.getStatus());
+            taskDto.setCreatedAt(task.getCreatedAt());
+            taskDto.setUpdatedAt(task.getUpdatedAt());
+            return new ResponseEntity(taskDto, HttpStatus.ACCEPTED);
         } catch (Exception e){
             return new ResponseEntity("Kayıt bulunamadı", HttpStatus.BAD_REQUEST);
         }
     }
 
     @Override
-    public ResponseEntity<Task> updateDescriptionById(Long id, String description) {
+    public boolean updateDescriptionById(Long id, TaskDto taskDto) {
         try{
             Task updatedTask = taskRepository.getById(id);
-            updatedTask.setDescription(description);
-            updatedTask.setUpdatedAt(new Date());
+            updatedTask.setDescription(taskDto.getDescription());
             taskRepository.save(updatedTask);
-            return new ResponseEntity(updatedTask, HttpStatus.OK);
+            return true;
         } catch (Exception e){
-            return new ResponseEntity("Description güncellenemedi.", HttpStatus.BAD_REQUEST);
+            return false;
         }
     }
 
     @Override
-    public ResponseEntity<Task> updateStatusById(Long id) {
+    public boolean updateStatusById(Long id) {
         try{
             Task updatedTask = taskRepository.getById(id);
             if(updatedTask.getStatus().equals("undone")){
@@ -68,21 +75,21 @@ public class TaskServiceImpl implements TaskService {
             } else {
                 updatedTask.setStatus("undone");
             }
-            updatedTask.setUpdatedAt(new Date());
+            updatedTask.setUpdatedAt((new SimpleDateFormat("dd-MM-yy HH:mm")).format(new Date()));
             taskRepository.save(updatedTask);
-            return new ResponseEntity(updatedTask, HttpStatus.OK);
+            return true;
         } catch (Exception e){
-            return new ResponseEntity("Status Güncellenemedi.", HttpStatus.BAD_REQUEST);
+            return false;
         }
     }
 
     @Override
-    public ResponseEntity<Task> deleteTaskById(Long id) {
+    public boolean deleteTaskById(Long id) {
         try{
             taskRepository.deleteById(id);
-            return new ResponseEntity("Task Silindi.", HttpStatus.OK);
+            return true;
         } catch (Exception e){
-            return new ResponseEntity("Task Silinemedi.", HttpStatus.BAD_REQUEST);
+            return false;
         }
     }
 }
