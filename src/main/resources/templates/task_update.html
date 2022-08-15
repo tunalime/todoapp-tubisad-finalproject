@@ -1,7 +1,7 @@
 <!doctype html>
 <html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
 <!-- title-->
-<title>My page</title>
+<title>Task Update</title>
 <!-- favicon -->
 <link rel="icon" href="images/favicon.jpg"/>
 
@@ -58,9 +58,9 @@
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                 <form th:action="@{/update/task/{id}(id=${task_update.id})}" method="post" th:object="${task_update}">
                     <!--private Long taskID;
-                    private String definition;-->
+                    private String description;-->
 
-                    <!-- Definition -->
+                    <!-- Description -->
                     <div class="form-outline mb-4">
                         <input type="text" class="form-control form-control-lg"  placeholder="description" id="description" th:field="*{description}" />
                         <label th:if="${#fields.hasErrors('description')}" th:errors="*{description}"  class="form-label text-danger" >description</label>
