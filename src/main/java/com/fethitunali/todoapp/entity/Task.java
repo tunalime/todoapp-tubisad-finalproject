@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -26,9 +29,9 @@ public class Task {
     private String status;
 
     @Column
-    private Date createdAt;
+    private String createdAt;
 
     @Column
-    private Date updatedAt;
+    private String updatedAt;
 
 }
