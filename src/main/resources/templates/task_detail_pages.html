@@ -1,7 +1,7 @@
 <!doctype html>
 <html  th:lang="${#locale.language}"  xmlns:th="http://www.thymeleaf.org" >
 <!-- title-->
-<title>My page</title>
+<title>Detail Page</title>
 <!-- favicon -->
 <link rel="icon" href="images/favicon.jpg" />
 
@@ -43,8 +43,8 @@
 <body class="container bg-dark text-white">
 <!-- start codes -->
 
-<h2 class="display-4 text-uppercase text-center mt-5 mb-5">Detail Page</h2>
-<a href="/task/list" class="btn btn-primary">List Pages</a>
+<h2 class="display-4 text-uppercase text-center mt-5 mb-5">DETAIL PAGE</h2>
+<a href="/task/list" class="btn btn-primary">Main Page</a>
 
 <div class="container">
       <div class="row">
@@ -53,10 +53,12 @@
                   <div class="card">
                         <img class="card-img-top" th:src="@{/images/header.jpg}" alt="Title">
                         <div class="card-body bg-primary text-white">
-                              <h4 class="card-title">Task</h4>
+                              <h4 class="card-title">Task Details</h4>
                               ID: <p th:text="${task_find.id}" class="card-text"></p>
-                              TASK:<p th:text="${task_find.description}" class="card-text"></p>
+                              DESCRIPTION:<p th:text="${task_find.description}" class="card-text"></p>
                               STATUS:<p th:text="${task_find.status}" class="card-text"></p>
+                              CREATED AT:<p th:text="${task_find.createdAt}" class="card-text"></p>
+                              UPDATED AT:<p th:text="${task_find.updatedAt}" class="card-text"></p>
                         </div>
                   </div>
             </div>
